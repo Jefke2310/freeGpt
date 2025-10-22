@@ -17,7 +17,9 @@ function App() {
     setMessages(next)
     setLoading(true)
     try {
-      const res = await fetch('/api/chat', {
+      const base = (import.meta as any).env?.VITE_API_BASE ?? ''
+      const url = `${String(base).replace(/\/$/, '')}/api/chat`
+      const res = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: next }),
